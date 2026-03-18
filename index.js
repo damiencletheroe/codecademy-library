@@ -4,7 +4,6 @@ class Media {
         this._title = title;
         this._isCheckedOut = false;
         this._ratings = [];
-
     }
 
     get title() {
@@ -24,11 +23,7 @@ class Media {
     }
 
     toggleCheckoutStatus() {
-        if (this.isCheckedOut === false) {
-            this.isCheckedOut = true;
-        } else {
-            this.isCheckedOut = false;
-        }
+        this.isCheckedOut = !this.isCheckedOut;
     }
 
     getAverageRating() {
@@ -37,10 +32,8 @@ class Media {
         return ratingsSum / numRatings;
     }
 
-    
-    
     addRating(rating) {
-        this.ratings.push(rating);
+        this._ratings.push(rating);
     }
 }
 
@@ -88,8 +81,44 @@ class CD extends Media {
     }
 }
 
-// Creating some example class instances and using methods
+// Creating a catalogue class with search functionality
 
+class Catalogue {
+    constructor(name) {
+        this._name = name;
+        this._items = [];
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    get items() {
+        return this._items;
+    }
+
+    addItem(item) {
+        this._items.push(item);
+    }
+
+    findExactTitle(title) {
+        return this._items.find(item => item.title.toLowerCase() === title.toLowerCase());
+    }
+
+    findFuzzyTitle(term) {
+        return this._items.filter(item => item.title.toLowerCase().includes(term.toLowerCase()));
+    }
+}
+
+// Creating some example class instances and using methods for testing
+
+/*
+const booksNStuff = new Catalogue('Books N Stuff');
+booksNStuff.addItem(new Book('George R R Martin', 'A Clash of Kings', 800));
+booksNStuff.addItem(new Movie('Steven Spielberg', 'E.T', 120));
+booksNStuff.addItem(new CD('Savage Garden', 'Affirmation'));
+
+console.log(booksNStuff.items)
 const historyOfEverything = new Book ('Bill Bryson', 'A Short History of Nearly Everything', 544);
 historyOfEverything.toggleCheckoutStatus();
 console.log(historyOfEverything.isCheckedOut);
@@ -105,3 +134,4 @@ speed.addRating(1);
 speed.addRating(1);
 speed.addRating(5);
 console.log(speed.getAverageRating());
+*/
